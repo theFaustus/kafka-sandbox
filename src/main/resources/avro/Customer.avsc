@@ -1,0 +1,9 @@
+{"namespace": "evil.inc.kafkasandbox.payload.avro",
+ "type": "record",
+ "name": "Customer",
+ "fields": [
+ {"name": "id", "type": "int"},
+ {"name": "name", "type": "string"},
+ {"name": "faxNumber", "type": ["null", "string"]}
+ ]
+}
