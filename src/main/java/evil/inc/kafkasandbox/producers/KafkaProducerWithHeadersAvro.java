@@ -6,11 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-public class KafkaProducerAvro {
+public class KafkaProducerWithHeadersAvro {
     public static void main(String[] args) {
         Properties kafkaProps = new Properties();
         kafkaProps.put("bootstrap.servers", "localhost:9092");
@@ -29,7 +30,9 @@ public class KafkaProducerAvro {
             while (i <= 100) {
                 int random = ThreadLocalRandom.current().nextInt(0, 999);
                 Customer customer = new Customer(random, "Mike-" + random, "42313" + random);
-                ProducerRecord<String, Customer> record = new ProducerRecord<>("CustomersAvro", String.valueOf(random), customer);
+                ProducerRecord<String, Customer> record = new ProducerRecord<>("CustomersAvroWithHeaders", String.valueOf(random), customer);
+                record.headers().add("privacy-level", "YOLO".getBytes(StandardCharsets.UTF_8));
+                record.headers().add("trace-id", "51e82923-605d-417c-a6f5-07718824d0e0".getBytes(StandardCharsets.UTF_8));
                 kafkaProducer.send(record, (metadata, exception) -> log.info("Received response {}", metadata));
                 i++;
             }
