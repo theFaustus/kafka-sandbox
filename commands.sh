@@ -1,5 +1,7 @@
 alias broker='docker exec -it broker'
 
+docker run --rm -it --net=host landoop/fast-data-dev bash
+
 broker kafka-topics --list --bootstrap-server broker:9092
 
 broker kafka-topics --create --bootstrap-server broker:9092 --replication-factor 1 --partitions 1 --topic test-topic
