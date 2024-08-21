@@ -8,6 +8,10 @@ kafka-topics --list --bootstrap-server localhost:9092
 
 kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 2 --topic test-topic
 
+kafka-topics --create --bootstrap-server localhost:9092 --topic transfer-events
+
+kafka-topics --create --bootstrap-server localhost:9092 --topic transaction-events
+
 kafka-topics --bootstrap-server localhost:9092 --topic test-topic --describe
 
 kafka-consumer-groups \
