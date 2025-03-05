@@ -11,12 +11,13 @@ import java.util.Properties;
 public class KafkaProducerSync {
     public static void main(String[] args) {
         Properties kafkaProps = new Properties();
-        kafkaProps.put("bootstrap.servers", "localhost:9092");
+        kafkaProps.put("bootstrap.servers", "http://localhost:9092");
         kafkaProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         kafkaProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         try(KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(kafkaProps)) {
-            RecordMetadata recordMetadata = kafkaProducer.send(new ProducerRecord<>("CustomerCountry", "Precision Services", "Spain")).get();
+            ProducerRecord<String, String> record = new ProducerRecord<>("CustomerCountry", "Precision Services", "Spain");
+            RecordMetadata recordMetadata = kafkaProducer.send(record).get();
             log.info("Received response {}", recordMetadata);
         } catch (Exception e) {
             e.printStackTrace();

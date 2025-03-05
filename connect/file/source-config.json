@@ -1,0 +1,7 @@
+{
+  "connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+  "file": "/my-data/connect-source-in.txt",
+  "tasks.max": "1",
+  "name": "FileStreamSourceConnector",
+  "topic": "connect-test-x"
+}

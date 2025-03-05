@@ -1,0 +1,7 @@
+{
+  "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+  "file": "/my-data/connect-sink-out.txt",
+  "topics": "connect-test-x",
+  "tasks.max": "1",
+  "name": "FileStreamSinkConnector"
+}
