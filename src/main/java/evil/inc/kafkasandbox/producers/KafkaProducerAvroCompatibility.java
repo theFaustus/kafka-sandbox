@@ -1,5 +1,6 @@
 package evil.inc.kafkasandbox.producers;
 
+import evil.inc.kafkasandbox.payload.avro.Client;
 import evil.inc.kafkasandbox.payload.avro.Customer;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import lombok.extern.slf4j.Slf4j;
@@ -10,14 +11,14 @@ import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-public class KafkaProducerAvro {
+public class KafkaProducerAvroCompatibility {
     public static void main(String[] args) {
         Properties kafkaProps = new Properties();
         kafkaProps.put("bootstrap.servers", "localhost:9092");
         kafkaProps.put("schema.registry.url", "http://localhost:8081");
         kafkaProps.put("key.serializer", KafkaAvroSerializer.class.getName());
         kafkaProps.put("value.serializer", KafkaAvroSerializer.class.getName());
-        kafkaProps.put("client.id", "KafkaProducerAvroClient");
+        kafkaProps.put("client.id", "KafkaProducerAvroClientCompatibility");
         kafkaProps.put("acks", "all"); //default is 1
         kafkaProps.put("retries", "5");
         kafkaProps.put("compression.type", "snappy"); //Snappy compression was invented by Google to provide decent compression ratios with low CPU overhead and good performance
@@ -25,12 +26,20 @@ public class KafkaProducerAvro {
         kafkaProps.put("enable.idempotence", "true"); //requires retries > 0 and max.in.flight.requests.per.connection <= 5
 
         int i = 0;
-        try (KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<>(kafkaProps)) {
+        try (KafkaProducer<String, Client> kafkaProducer = new KafkaProducer<>(kafkaProps)) {
             while (i <= 10) {
                 int random = ThreadLocalRandom.current().nextInt(0, 999);
-                Customer customer = new Customer(random, "Mike-" + random, "42313" + random, "@Mike" + random);
-                ProducerRecord<String, Customer> record = new ProducerRecord<>("CustomersAvro", String.valueOf(random), customer);
-                kafkaProducer.send(record, (metadata, exception) -> log.info("Received response {}", metadata));
+//              Testing backward compatibility - Schema being registered is incompatible with an earlier schema for subject
+//              Client customer = new Client(random, "Mike-" + random, "mike-" + random + "@mail.com", "@Mike" + random);
+                Client customer = new Client(random, random, "@Mike" + random);
+                ProducerRecord<String, Client> record = new ProducerRecord<>("ClientsAvro", String.valueOf(random), customer);
+                kafkaProducer.send(record, (metadata, exception) -> {
+                    if (exception != null) {
+                        log.error("Oops, something happened", exception);
+                    } else {
+                        log.info("Received response {}", metadata);
+                    }
+                });
                 i++;
             }
         } catch (Exception e) {

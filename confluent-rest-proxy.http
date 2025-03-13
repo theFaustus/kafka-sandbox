@@ -1,0 +1,47 @@
+### Get topics
+GET http://localhost:8082/topics
+
+### Get topic
+GET http://localhost:8082/topics/1mln-test-topic
+
+### Produce message
+POST http://localhost:8082/topics/rest-test-topic
+Content-Type: application/vnd.kafka.json.v2+json
+
+{
+  "records": [
+    {
+      "key": "message",
+      "value": "Hello"
+    },
+    {
+      "key": "message",
+      "value": "World"
+    }
+  ]
+}
+
+### Consumer creation
+POST http://localhost:8082/consumers/rest-test-consumer
+Content-Type: application/vnd.kafka.json.v2+json
+
+{
+  "name": "rest-test-consumer-instance",
+  "format": "json",
+  "auto.offset.reset": "earliest"
+}
+
+### Subscribe to topic
+POST http://localhost:8082/consumers/rest-test-consumer/instances/rest-test-consumer-instance/subscription
+Content-Type: application/vnd.kafka.json.v2+json
+
+{
+  "topics" : ["rest-test-topic"]
+}
+
+### Consume
+GET http://localhost:8082/consumers/rest-test-consumer/instances/rest-test-consumer-instance/records
+Accept: application/vnd.kafka.json.v2+json
+
+### Delete consumer
+DELETE http://localhost:8082/consumers/rest-test-consumer/instances/rest-test-consumer-instance

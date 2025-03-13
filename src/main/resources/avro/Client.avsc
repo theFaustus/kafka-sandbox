@@ -1,23 +1,17 @@
 {
   "namespace": "evil.inc.kafkasandbox.payload.avro",
   "type": "record",
-  "compatiblity": "BACKWARD",
-  "name": "Customer",
+  "compatibility": "BACKWARD",
+  "name": "Client",
   "fields": [
     {
       "name": "id",
       "type": "int"
     },
     {
-      "name": "name",
-      "type": "string"
-    },
-    {
-      "name": "faxNumber",
-      "type": [
-        "null",
-        "string"
-      ]
+      "name": "phone",
+      "type": "int",
+      "default": 0
     },
    {
     "name": "twitter",

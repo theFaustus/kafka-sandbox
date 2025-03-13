@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Customer extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 200160593101987934L;
+  private static final long serialVersionUID = 7578393723881112614L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Customer\",\"namespace\":\"evil.inc.kafkasandbox.payload.avro\",\"fields\":[{\"name\":\"id\",\"type\":\"int\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"faxNumber\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Customer\",\"namespace\":\"evil.inc.kafkasandbox.payload.avro\",\"fields\":[{\"name\":\"id\",\"type\":\"int\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"faxNumber\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"twitter\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]}],\"compatiblity\":\"BACKWARD\"}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -76,6 +76,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
   private int id;
   private java.lang.String name;
   private java.lang.String faxNumber;
+  private java.lang.String twitter;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -89,11 +90,13 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
    * @param id The new value for id
    * @param name The new value for name
    * @param faxNumber The new value for faxNumber
+   * @param twitter The new value for twitter
    */
-  public Customer(java.lang.Integer id, java.lang.String name, java.lang.String faxNumber) {
+  public Customer(java.lang.Integer id, java.lang.String name, java.lang.String faxNumber, java.lang.String twitter) {
     this.id = id;
     this.name = name;
     this.faxNumber = faxNumber;
+    this.twitter = twitter;
   }
 
   @Override
@@ -109,6 +112,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     case 0: return id;
     case 1: return name;
     case 2: return faxNumber;
+    case 3: return twitter;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -121,6 +125,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     case 0: id = (java.lang.Integer)value$; break;
     case 1: name = value$ != null ? value$.toString() : null; break;
     case 2: faxNumber = value$ != null ? value$.toString() : null; break;
+    case 3: twitter = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -177,6 +182,23 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
   }
 
   /**
+   * Gets the value of the 'twitter' field.
+   * @return The value of the 'twitter' field.
+   */
+  public java.lang.String getTwitter() {
+    return twitter;
+  }
+
+
+  /**
+   * Sets the value of the 'twitter' field.
+   * @param value the value to set.
+   */
+  public void setTwitter(java.lang.String value) {
+    this.twitter = value;
+  }
+
+  /**
    * Creates a new Customer RecordBuilder.
    * @return A new Customer RecordBuilder
    */
@@ -220,6 +242,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
     private int id;
     private java.lang.String name;
     private java.lang.String faxNumber;
+    private java.lang.String twitter;
 
     /** Creates a new Builder */
     private Builder() {
@@ -244,6 +267,10 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
         this.faxNumber = data().deepCopy(fields()[2].schema(), other.faxNumber);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
+      if (isValidValue(fields()[3], other.twitter)) {
+        this.twitter = data().deepCopy(fields()[3].schema(), other.twitter);
+        fieldSetFlags()[3] = other.fieldSetFlags()[3];
+      }
     }
 
     /**
@@ -263,6 +290,10 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
       if (isValidValue(fields()[2], other.faxNumber)) {
         this.faxNumber = data().deepCopy(fields()[2].schema(), other.faxNumber);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.twitter)) {
+        this.twitter = data().deepCopy(fields()[3].schema(), other.twitter);
+        fieldSetFlags()[3] = true;
       }
     }
 
@@ -385,6 +416,46 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
       return this;
     }
 
+    /**
+      * Gets the value of the 'twitter' field.
+      * @return The value.
+      */
+    public java.lang.String getTwitter() {
+      return twitter;
+    }
+
+
+    /**
+      * Sets the value of the 'twitter' field.
+      * @param value The value of 'twitter'.
+      * @return This builder.
+      */
+    public evil.inc.kafkasandbox.payload.avro.Customer.Builder setTwitter(java.lang.String value) {
+      validate(fields()[3], value);
+      this.twitter = value;
+      fieldSetFlags()[3] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'twitter' field has been set.
+      * @return True if the 'twitter' field has been set, false otherwise.
+      */
+    public boolean hasTwitter() {
+      return fieldSetFlags()[3];
+    }
+
+
+    /**
+      * Clears the value of the 'twitter' field.
+      * @return This builder.
+      */
+    public evil.inc.kafkasandbox.payload.avro.Customer.Builder clearTwitter() {
+      twitter = null;
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public Customer build() {
@@ -393,6 +464,7 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.Integer) defaultValue(fields()[0]);
         record.name = fieldSetFlags()[1] ? this.name : (java.lang.String) defaultValue(fields()[1]);
         record.faxNumber = fieldSetFlags()[2] ? this.faxNumber : (java.lang.String) defaultValue(fields()[2]);
+        record.twitter = fieldSetFlags()[3] ? this.twitter : (java.lang.String) defaultValue(fields()[3]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -437,6 +509,14 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
       out.writeString(this.faxNumber);
     }
 
+    if (this.twitter == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.twitter);
+    }
+
   }
 
   @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
@@ -455,8 +535,15 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
         this.faxNumber = in.readString();
       }
 
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.twitter = null;
+      } else {
+        this.twitter = in.readString();
+      }
+
     } else {
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 4; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
           this.id = in.readInt();
@@ -472,6 +559,15 @@ public class Customer extends org.apache.avro.specific.SpecificRecordBase implem
             this.faxNumber = null;
           } else {
             this.faxNumber = in.readString();
+          }
+          break;
+
+        case 3:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.twitter = null;
+          } else {
+            this.twitter = in.readString();
           }
           break;
 

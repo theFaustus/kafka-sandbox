@@ -36,7 +36,7 @@ public class KafkaProducerWithInterceptorAvro {
         try (KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<>(kafkaProps)) {
             while (i <= 10000) {
                 int random = ThreadLocalRandom.current().nextInt(0, 999);
-                Customer customer = new Customer(random, "Mike-" + random, "42313" + random);
+                Customer customer = new Customer(random, "Mike-" + random, "42313" + random, "");
                 ProducerRecord<String, Customer> record = new ProducerRecord<>("CustomersWithInterceptorAvro", String.valueOf(random), customer);
                 kafkaProducer.send(record, (metadata, exception) -> log.info("Received response {}", metadata));
                 i++;

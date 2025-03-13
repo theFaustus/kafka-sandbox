@@ -30,7 +30,7 @@ public class KafkaProducerAvroWithCustomPartitioner {
         try (KafkaProducer<String, Customer> kafkaProducer = new KafkaProducer<>(kafkaProps)) {
             while (i <= 100) {
                 int random = ThreadLocalRandom.current().nextInt(0, 999);
-                Customer customer = new Customer(random, "Mike-" + random, "42313" + random);
+                Customer customer = new Customer(random, "Mike-" + random, "42313" + random, "");
                 ProducerRecord<String, Customer> record = new ProducerRecord<>("CustomersWithPartitionForMichaelScott", random % 2 == 0 ? "Michael Scott" : String.valueOf(random), customer);
                 kafkaProducer.send(record, (metadata, exception) -> log.info("Received response {}", metadata));
                 i++;
