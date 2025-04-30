@@ -1,5 +1,8 @@
 alias broker='docker exec -it broker'
 
+#enter ksql
+docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
+
 docker run --rm -it --net=host landoop/fast-data-dev bash
 
 docker exec -it kafka-cluster bash
